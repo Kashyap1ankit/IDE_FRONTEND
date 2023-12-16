@@ -1,0 +1,30 @@
+.btn-div {
+  margin: 0%;
+  width: 100vw;
+  background-color: #213547;
+  padding: 1%;
+}
+
+.btn-div button {
+  margin-left: 55%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: baseline;
+  background-color: green;
+  width: 6%;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.btn-div button img {
+  margin-right: 20%;
+  filter: invert(100%);
+  font-weight: 800;
+  width: 30%;
+}
