@@ -14,7 +14,7 @@ function MainComp() {
 
   // Button functionality
 
-  const [output, setOutput] = useState(null);
+  const [out, setOutput] = useState(null);
 
   const handleRunClick = async () => {
     if (!editor) {
@@ -27,8 +27,8 @@ function MainComp() {
     try {
       const response = await axios.post("http://localhost:6969/run", { code });
       // Ensure the response has a property named 'output'
-      if (response.data && response.data.hasOwnProperty("data")) {
-        setOutput(response.data.data);
+      if (response.data && response.data.hasOwnProperty("out")) {
+        setOutput(response.data.out);
       } else {
         console.error("Invalid response format:", response);
       }
@@ -42,7 +42,7 @@ function MainComp() {
   return (
     <>
       <Btn onhandleRunClick={handleRunClick} />
-      <Editor onEditorChange={handleEditorChange} output={output} />
+      <Editor onEditorChange={handleEditorChange} output={out} />
     </>
   );
 }
