@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Btn from "./comp1";
 import Editor from "./editor";
 import axios from "axios";
 
 function MainComp() {
-  // Textarea fucntionality
-
+  const [output, setOutput] = useState(null);
   const [editor, setEditor] = useState(null);
+  const [val, setVal] = useState("javascript");
+
+  // Textarea fucntionality
 
   const handleEditorChange = (editorInstance) => {
     setEditor(editorInstance);
@@ -14,7 +16,7 @@ function MainComp() {
 
   // Button functionality
 
-  const [out, setOutput] = useState(null);
+  //Sending post request to backend and then fetching its value
 
   const handleRunClick = async () => {
     if (!editor) {
@@ -24,11 +26,29 @@ function MainComp() {
 
     const code = editor.getValue();
 
+    if (val === "javascript") {
+      console.log("javascript");
+    }
+    if (val === "java") {
+      console.log("java");
+    }
+
+    if (val === "c") {
+      console.log("c");
+    }
+
+    if (val === "c++") {
+      console.log("c++");
+    }
+    if (val === "python") {
+      console.log("python");
+    }
+
     try {
-      const response = await axios.post("http://localhost:6969/run", { code });
+      const response = await axios.post(`http://localhost:6969/run-${val}`, { code });
       // Ensure the response has a property named 'output'
-      if (response.data && response.data.hasOwnProperty("out")) {
-        setOutput(response.data.out);
+      if (response.data && response.data.hasOwnProperty("consoleOutput")) {
+        setOutput(response.data.consoleOutput);
       } else {
         console.error("Invalid response format:", response);
       }
@@ -39,12 +59,18 @@ function MainComp() {
     }
   };
 
+  //Getting the value of the select option;
+
+  const getVal = (event) => {
+    setVal(event.target.value);
+  };
+
   return (
     <>
-      <Btn onhandleRunClick={handleRunClick} />
-      <Editor onEditorChange={handleEditorChange} output={out} />
+      <Btn onhandleRunClick={handleRunClick} fn={getVal} />
+      <Editor onEditorChange={handleEditorChange} output={output} fn={val} />
     </>
   );
 }
 
-export default MainComp;
+export default MainComp;
